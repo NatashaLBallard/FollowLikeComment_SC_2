@@ -42,13 +42,26 @@ public class MainController {
     }
 
 
+
+    //***************** Beginning of USER POSTS MESSAGE *****************
+
     @GetMapping("/add")
     public String addMyMessageForm(Model model){
         model.addAttribute("message",new Message());
         return"/add";
     }
 
-
+    @PostMapping("/add")
+    public String processMessage(@Valid @ModelAttribute("message") Message message,BindingResult result, Authentication auth)
+    {
+        System.out.println(result);
+        if (result.hasErrors()) {
+            return "add";
+        }
+        else {
+            return "redirect:/list";
+        }
+    }
 
     @PostMapping("/process")
     public String saveMyMessage(@Valid @ModelAttribute("message") Message message,BindingResult result, Authentication auth)
@@ -56,32 +69,15 @@ public class MainController {
         if (result.hasErrors()) {
             return "add";
         }
-
         User currentUser = userRepository.findUserByUsername(auth.getName());
         currentUser.getMyMessages().toString();
         message.setUsers(currentUser);
         message.setSavedUsername(auth.getName());
-
         messageRepository.save(message);
-
         return "redirect:/";
-
     }
 
-
-    @PostMapping("/add")
-    public String processMessage(@Valid @ModelAttribute("message") Message message,BindingResult result, Authentication auth){
-
-        System.out.println(result);
-        if (result.hasErrors()) {
-            return "add";
-        }
-        else {
-            return "redirect:/list";
-
-        }
-    }
-
+    //***************** Beginning of USER POSTS MESSAGE *****************
 
 
 

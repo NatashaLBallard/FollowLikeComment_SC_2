@@ -10,12 +10,12 @@
 <div th:replace="base :: navbarmenu"></div>
 
 
-<h2>Report A Lost Item</h2>
+<h2>Post A Message</h2>
 <div th:replace="base :: navlinks"></div><br/><br/>
 
 <form action="#"
       th:action="@{/process}"
-      th:object="${item}"
+      th:object="${message}"
       method="post">
     <input type="hidden" th:field="*{id}" />
     <input type="hidden" th:field="*{users}" />
@@ -27,8 +27,8 @@
     </div>
     <div class="col-3">
         <label id="labelItemName">Name of Item</label>
-        <input type="text" class="form-control" id="textName" th:field="*{itemName}" placeholder="Enter name of lost item"/>
-        <span th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}"></span>
+        <input type="text" class="form-control" id="textName" th:field="*{messageName}" placeholder="Enter name of lost message"/>
+        <span th:if="${#fields.hasErrors('messageName')}" th:errors="*{messageName}"></span>
     </div>
     <div class="col-3">
         <label id="labelDateLost">Date Lost</label>
@@ -42,13 +42,13 @@
     </div>
     <div class="col-3">
         <label id="labelItemCategory">Item Category</label>
-        <Select th:field="*{itemCategory}">
+        <Select th:field="*{messageCategory}">
             <option value="null" >    </option>
             <option value="Clothes">Clothes</option>
             <option value="Pets">Pets</option>
             <option value="Other">Other</option>
         </Select>
-        <span th:if="${#fields.hasErrors('itemCategory')}" th:errors="*{itemCategory}"></span>
+        <span th:if="${#fields.hasErrors('messageCategory')}" th:errors="*{messageCategory}"></span>
     </div>
     <div class="col-3">
         <label id="labelImage">Image</label>

@@ -18,14 +18,14 @@
     <div class="card">
         <div class="card-body">
             <!--<div th:if="${item.image}!=null">-->
-            <!--&lt;!&ndash;<img class="img-rounded" th:src="${item.image}" alt="Item Picture" style="width:30%"/>&ndash;&gt;-->
+            <img class="img-rounded" th:src="${message.image}" alt="Item Picture" style="width:30%"/>
             <!--<span><img  th:src="${(${item.image}==null)?'https://static1.squarespace.com/static/50c2031de4b02a7395e3e36f/t/5579a8e5e4b0204b4bc3a1b1/1434036455283/LostAndFoundBoxShutterstock.jpg':${item.image}}"  style="width:30%"/></span>-->
 
 
-            <div th:if="${item.image}==null">
-                <img class="img-rounded" th:src="${item.image}" alt="Item Picture" style="width:30%"/>
-                <span><img  th:src="${(${item.image}==null)?'https://static1.squarespace.com/static/50c2031de4b02a7395e3e36f/t/5579a8e5e4b0204b4bc3a1b1/1434036455283/LostAndFoundBoxShutterstock.jpg':${item.image}}"  style="width:30%"/></span>
-            </div>
+            <!--<div th:if="${message.image}==null">-->
+                <!--<img class="img-rounded" th:src="${message.image}" alt="Item Picture" style="width:30%"/>-->
+                <!--&lt;!&ndash;<span><img  th:src="${(${message.image}==null)?'https://static1.squarespace.com/static/50c2031de4b02a7395e3e36f/t/5579a8e5e4b0204b4bc3a1b1/1434036455283/LostAndFoundBoxShutterstock.jpg':${message.image}}"  style="width:30%"/></span>&ndash;&gt;-->
+            <!--</div>-->
 
 
 
@@ -34,14 +34,14 @@
             <!--<b>Submitted By:</b> <Span th:text="${user.getId()}"></Span><br/>-->
             <!--<b>Submitted By:</b> <Span th:text="${#authentication.getPrincipal().getUsername()}"></Span><br/>-->
             <!--<b>Submitted By:</b> <Span th:text="${user.{id}(id=${users.id})}"></Span><br/>-->
-            <b>Alias Name:</b> <Span th:text="${item.alias}"></Span><br/>
-            <b>Submitted By:</b> <Span th:text="${item.users.username}"></Span><br/>
-            <b>Submission ID:</b> <Span th:text="${item.id}"></Span><br/>
-            <b>Name of Item:</b> <Span th:text="${item.itemName}"></Span><br/>
-            <b>Category:</b> <Span th:text="${item.itemCategory}"></Span><br/>
-            <b>Date Lost:</b> <Span th:text="${item.dateLost}"></Span><br/>
-            <b>Description:</b> <Span th:text="${item.description}"></Span><br/>
-            <b>Found:</b> <Span th:text="${item.found}"></Span><br/>
+            <b>Alias Name:</b> <Span th:text="${message.alias}"></Span><br/>
+            <b>Submitted By:</b> <Span th:text="${message.users.username}"></Span><br/>
+            <b>Submission ID:</b> <Span th:text="${message.id}"></Span><br/>
+            <b>Name of Item:</b> <Span th:text="${message.messageName}"></Span><br/>
+            <b>Category:</b> <Span th:text="${message.messageCategory}"></Span><br/>
+            <b>Date Lost:</b> <Span th:text="${message.dateLost}"></Span><br/>
+            <b>Description:</b> <Span th:text="${message.description}"></Span><br/>
+            <b>Found:</b> <Span th:text="${message.found}"></Span><br/>
         </div>
     </div>
 </div>

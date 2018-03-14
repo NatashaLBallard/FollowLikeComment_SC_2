@@ -34,24 +34,24 @@ Welcome <b><p sec:authentication="name">!</p></b>
         <!--<tr th:each="user : ${users}">-->
         <!--<td th:text="${user.getId()}"></td>-->
         <!--</tr>-->
-        <tr th:each="item : ${items}">
-            <td th:text="${item.image}"></td>
+        <tr th:each="message : ${messages}">
+            <td th:text="${message.image}"></td>
 
-            <td th:text="${item.itemName}"></td>
+            <td th:text="${message.messageName}"></td>
 
-            <td th:text="${item.itemCategory}"></td>
+            <td th:text="${message.messageCategory}"></td>
 
-            <td th:text="${item.dateLost}"></td>
+            <td th:text="${message.dateLost}"></td>
 
-            <td th:text="${item.description}"></td>
+            <td th:text="${message.description}"></td>
 
-            <td th:text="${item.found}"></td>
+            <td th:text="${message.found}"></td>
             <td>
-                <a th:href="@{/detail/{id}(id=${item.id})}">Details</a>
+                <a th:href="@{/detail/{id}(id=${message.id})}">Details</a>
             </td>
             <!--<td><a th:href="@{/update/{id} (id=${item.id})}">Update</a></td>-->
-            <td><a th:href="@{/found/{id} (id=${item.id})}">Found</a></td>
-            <td><a th:href="@{/lost/{id} (id=${item.id})}">Lost</a></td>
+            <td><a th:href="@{/found/{id} (id=${message.id})}">Found</a></td>
+            <td><a th:href="@{/lost/{id} (id=${message.id})}">Lost</a></td>
         </tr>
         </tbody>
     </table>
