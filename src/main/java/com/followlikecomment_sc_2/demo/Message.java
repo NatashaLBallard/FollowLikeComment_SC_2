@@ -55,22 +55,23 @@ public class Message {
     private String usersWhoLikedMessage;
 
 
-    @ManyToOne
-    private User users;
+    @ManyToOne (cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
 
 
 
 
+//
+//    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private Set<Comment> comments;
 
-    @OneToMany(mappedBy = "messageComment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Set<Comment> commentsformessage;
 
-
-    public Message(){
-        this.commentsformessage = new HashSet<>();
-    }
+//    public Message(){
+//        this.comments = new HashSet<>();
+//    }
 
 
 
@@ -82,20 +83,27 @@ public class Message {
 //    }
 
 //
-//    public MessagePerLikes(String alias, String savedUsername, String messageName, String description, String dateLost, String image, String found, String messageCategory, String addMessage, String search, String viewCurrentUserMessages, int likeMessageCount) {
-//        this.alias = alias;
-//        this.savedUsername = savedUsername;
-//        this.messageName = messageName;
-//        this.description = description;
-//        this.dateLost = dateLost;
-//        this.image = image;
-//        this.found = found;
-//        this.messageCategory = messageCategory;
-//        this.addMessage = addMessage;
-//        this.search = search;
-//        this.viewCurrentUserMessages = viewCurrentUserMessages;
-//        this.likeMessageCount = likeMessageCount;
-//    }
+
+        public Message(){
+    }
+
+
+    public Message(String alias, String savedUsername, String messageName, String description, String dateLost, String image, String found, String messageCategory, String addMessage, String search, String viewCurrentUserMessages, int likeMessageCount) {
+        this.alias = alias;
+        this.savedUsername = savedUsername;
+        this.messageName = messageName;
+        this.description = description;
+        this.dateLost = dateLost;
+        this.image = image;
+        this.found = found;
+        this.messageCategory = messageCategory;
+        this.addMessage = addMessage;
+        this.search = search;
+        this.viewCurrentUserMessages = viewCurrentUserMessages;
+        this.likeMessageCount = likeMessageCount;
+        this.user = user;
+
+    }
 
 
     public long getId() {
@@ -207,12 +215,12 @@ public class Message {
         this.savedUsername = savedUsername;
     }
 
-    public User getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(User users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getViewCurrentUserMessages() {
@@ -254,11 +262,11 @@ public class Message {
         ArrayList<String> usersWhoLiked = new ArrayList<String>();
     }
 
-    public Set<Comment> getCommentsformessage() {
-        return commentsformessage;
-    }
-
-    public void setCommentsformessage(Set<Comment> commentsformessage) {
-        this.commentsformessage = commentsformessage;
-    }
+//    public Set<Comment> getCommentsformessage() {
+//        return commentsformessage;
+//    }
+//
+//    public void setCommentsformessage(Set<Comment> commentsformessage) {
+//        this.commentsformessage = commentsformessage;
+//    }
 }

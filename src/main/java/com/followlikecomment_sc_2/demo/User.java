@@ -39,14 +39,24 @@ public class User {
 
 
 
-    @OneToMany
-            (mappedBy = "users", cascade = CascadeType.ALL)
 
+    @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private Set<Message> myMessages;
+//
+//    @OneToMany (mappedBy = "comments", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+//    private Set<Comment> myComments;
+
+
 
     public User() {
+
         this.myMessages = new HashSet<>();
+//        this.myComments = new HashSet<>();
+
+
     }
+
+
 
 
 
@@ -142,12 +152,24 @@ public class User {
         this.myMessages = myMessages;
     }
 
-
-
     public void addMessage(Message message)
     {
         this.myMessages.add(message);
     }
+
+
+
+//
+//    public Set<Comment> getMyComments() {
+//        return myComments;
+//    }
+//
+//    public void setMyComments(Set<Comment> myComments) {
+//        this.myComments = myComments;
+//    }
+
+
+
 
     public String getFollow() {
         return follow;
@@ -156,5 +178,7 @@ public class User {
     public void setFollow(String follow) {
         this.follow = follow;
     }
+
+
 }
 
