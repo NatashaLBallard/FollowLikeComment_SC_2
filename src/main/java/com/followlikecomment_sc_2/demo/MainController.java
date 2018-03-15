@@ -4,6 +4,7 @@ package com.followlikecomment_sc_2.demo;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,8 @@ public class MainController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    FollowListRepository followListRepository;
 
     @Autowired
     private UserService userService;
@@ -106,8 +109,10 @@ public class MainController {
     @RequestMapping("/follow")
     public String listOfFollowings(Model model){
         model.addAttribute("users",userRepository.findAllByFollowContainingIgnoreCase("Yes"));
+//        model.addAttribute("aFollow",userRepository.findAllByFollowContainingIgnoreCase("Yes"));
         System.out.println();
-        return "redirect:/viewallusers";
+//        return "redirect:/viewallusers";
+        return "followinglist";
     }
 
     @RequestMapping("/unfollow")
@@ -127,6 +132,18 @@ public class MainController {
 
         model.addAttribute("aFollow", userRepository.findOne(id));
         userRepository.save(user);
+
+
+
+
+//       model.addAttribute("aFollow", followListRepository.findByTheFollowerId(theFollowerId));
+
+//        user.setFollow("Yes");
+//
+//        model.addAttribute("aFollow", userRepository.findOne(id));
+//        userRepository.save(user);
+
+
         return "redirect:/viewallusers";
     }
     @RequestMapping("/unfollow/{id}")
@@ -174,6 +191,21 @@ public class MainController {
         model.addAttribute("messages",messageRepository.findAll());
         return"currentlist";
     }
+
+
+    @RequestMapping("/streamlist")
+    public String streamOfMessages(Model model){
+
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
+        model.addAttribute("messages",messageRepository.findAll(sort));
+        return"streamlist";
+    }
+
+
+
+
+
+
 
 
     @RequestMapping("/adminlist/{id}")
