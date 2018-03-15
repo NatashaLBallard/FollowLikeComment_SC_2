@@ -43,17 +43,18 @@ public class UserService {
         userRepository.save(user);
     }
 
-//    public void followUser(Long theFollowerId){
-////        FollowList followUser = userRepository.findUserByUsername(theFollowerUsername);
-////        followUser.setTheFollowerUsername();
-//        followListRepository.save(new FollowList(theFollowerId));
-//
-//    }
-//
-//    public void unfollowUser(Long theFollowerId){
-//        followListRepository.delete(followListRepository.findByTheFollowerId(theFollowerId));
-//
-//    }
+    public void followUser(Long theFollowerId){
+//        FollowList followUser = userRepository.findUserByUsername(theFollowerUsername);
+//        followUser.setTheFollowerUsername();
+        followListRepository.save(new FollowList(theFollowerId));
+        System.out.println( followListRepository.findByTheFollowerId(theFollowerId));
+
+    }
+
+    public void unfollowUser(Long theFollowerId){
+        followListRepository.delete(followListRepository.findByTheFollowerId(theFollowerId));
+        System.out.println( followListRepository.findByTheFollowerId(theFollowerId));
+    }
 
 
 }
