@@ -6,6 +6,9 @@ import org.hibernate.validator.constraints.URL;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Message {
@@ -49,14 +52,50 @@ public class Message {
 
     private int likeMessageCount;
 
+    private String usersWhoLikedMessage;
+
 
     @ManyToOne
     private User users;
 
-    public Message(){
 
+
+
+
+
+
+    @OneToMany(mappedBy = "messageComment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    Set<Comment> commentsformessage;
+
+
+    public Message(){
+        this.commentsformessage = new HashSet<>();
     }
 
+
+
+//    @OneToMany(mappedBy = "likes", cascade = CascadeType.ALL)
+//    private Set<Likes> myLikes;
+//
+//    public MessagePerLikes() {
+//        this.myLikes = new HashSet<>();
+//    }
+
+//
+//    public MessagePerLikes(String alias, String savedUsername, String messageName, String description, String dateLost, String image, String found, String messageCategory, String addMessage, String search, String viewCurrentUserMessages, int likeMessageCount) {
+//        this.alias = alias;
+//        this.savedUsername = savedUsername;
+//        this.messageName = messageName;
+//        this.description = description;
+//        this.dateLost = dateLost;
+//        this.image = image;
+//        this.found = found;
+//        this.messageCategory = messageCategory;
+//        this.addMessage = addMessage;
+//        this.search = search;
+//        this.viewCurrentUserMessages = viewCurrentUserMessages;
+//        this.likeMessageCount = likeMessageCount;
+//    }
 
 
     public long getId() {
@@ -194,9 +233,32 @@ public class Message {
 
     public void addToLikeCount(){
         this.likeMessageCount+=1;
+
     }
 
     public void minusFromLikeCount(){
         this.likeMessageCount-=1;
+    }
+
+
+    public String getUsersWhoLikedMessage() {
+        return usersWhoLikedMessage;
+    }
+
+//    public void setUsersWhoLikedMessage(String usersWhoLikedMessage) {
+//        this.usersWhoLikedMessage = usersWhoLikedMessage;
+//    }
+
+    public void addToUsersWhoLikedMessage(String usersWhoLikedMessage) {
+        this.usersWhoLikedMessage = usersWhoLikedMessage;
+        ArrayList<String> usersWhoLiked = new ArrayList<String>();
+    }
+
+    public Set<Comment> getCommentsformessage() {
+        return commentsformessage;
+    }
+
+    public void setCommentsformessage(Set<Comment> commentsformessage) {
+        this.commentsformessage = commentsformessage;
     }
 }

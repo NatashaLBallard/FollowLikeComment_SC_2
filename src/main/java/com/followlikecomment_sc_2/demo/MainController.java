@@ -28,6 +28,12 @@ public class MainController {
     FollowListRepository followListRepository;
 
     @Autowired
+    LikesRepository likesRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
+
+    @Autowired
     private UserService userService;
 
     @RequestMapping("/")
@@ -43,7 +49,7 @@ public class MainController {
 
 
 
-    //***************** Beginning of USER POSTS MESSAGE *****************
+    //***************** Start of USER POSTS MESSAGE *****************
 
     @GetMapping("/add")
     public String addMyMessageForm(Model model){
@@ -77,7 +83,64 @@ public class MainController {
         return "redirect:/";
     }
 
-    //***************** Beginning of USER POSTS MESSAGE *****************
+    //***************** End of USER POSTS MESSAGE *****************
+
+    //***************** Start of USER POSTS COMMENT *****************
+
+    @RequestMapping("/comment/{id}")
+    public String addComment(@PathVariable("id")long id,Model model){
+        model.addAttribute("message",messageRepository.findOne(id));
+        return "addcomment";
+    }
+
+
+    @GetMapping("/addcomment")
+    public String addMyCommentForm(Model model){
+        model.addAttribute("comment",new Comment());
+        return "addcomment";
+    }
+
+    @PostMapping("/addcomment")
+    public String processComment(@Valid @ModelAttribute("comment") Comment comment,BindingResult result, Authentication auth)
+    {
+        System.out.println(result);
+        if (result.hasErrors()) {
+            return "addcomment";
+        }
+        else {
+            return "redirect:/showitemdetails";
+        }
+    }
+
+    @PostMapping("/processcomment")
+    public String saveMyComment(@Valid @ModelAttribute("comment") Comment comment,Long id, BindingResult result, Authentication auth)
+    {
+        if (result.hasErrors()) {
+            return "add";
+        }
+
+
+        Message commentformessage = messageRepository.findMessageById(id);
+        commentformessage.getCommentsformessage().toString();
+        String comdescript = comment.getCommentDescription();
+        comment.setCommentDescription(comdescript);
+
+//        Message commentformessage = messageRepository.findMessageById(id);
+//        commentformessage.getCommentsformessage().toString();
+//        messageComment.setMessageComment(commentformessage);
+//        messageComment.setCommentDescription();
+        commentRepository.save(comment);
+
+
+//        User currentUser = userRepository.findUserByUsername(auth.getName());
+//        currentUser.getMyMessages().toString();
+//        comment.setUsers(currentUser);
+//        comment.setSavedUsername(auth.getName());
+//        messageRepository.save(message);
+        return "redirect:/";
+    }
+
+    //***************** End of USER POSTS COMMENT *****************
 
 
 
@@ -193,6 +256,11 @@ public class MainController {
     }
 
 
+
+
+
+
+
     @RequestMapping("/streamlist")
     public String streamOfMessages(Model model){
 
@@ -202,13 +270,28 @@ public class MainController {
     }
 
 
-
-
     @RequestMapping("/likethispost/{id}")
-    public String likeThisPost(Model model, @PathVariable("id") String theMessageLike){
+    public String likeThisPost(Model model, @PathVariable("id") String theMessageLike, Authentication auth){
         Message likeMessage = messageRepository.findOne(new Long(theMessageLike));
         likeMessage.addToLikeCount();
+
+//        likeMessage.addToUsersWhoLikedMessage(auth.getName());
+//        String usersWhoLikedMessage = "";
+//        System.out.println(usersWhoLikedMessage);
+
         messageRepository.save(likeMessage);
+
+//        User currentUser = userRepository.findUserByUsername(auth.getName());
+//        currentUser.getMyMessages().toString();
+//        message.setUsers(currentUser);
+//        message.setSavedUsername(auth.getName());
+//        messageRepository.save(message);
+
+
+//        Message userWhoLikesMessage = messageRepository.findUserBySavedUsername(savedUsername);
+//        userWhoLikesMessage.getMyLikes().toString();
+//        likeMessage.setSavedUsernameWhoLiked(auth.getName());
+//        likesRepository.save(userWhoLikesMessage);
         return "redirect:/streamlist";
     }
 
@@ -219,6 +302,17 @@ public class MainController {
         messageRepository.save(likeMessage);
         return "redirect:/streamlist";
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
     @RequestMapping("/adminlist/{id}")

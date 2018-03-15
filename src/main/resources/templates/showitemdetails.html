@@ -42,6 +42,11 @@
             <b>Date Lost:</b> <Span th:text="${message.dateLost}"></Span><br/>
             <b>Description:</b> <Span th:text="${message.description}"></Span><br/>
             <b>Found:</b> <Span th:text="${message.found}"></Span><br/>
+
+            <a th:href="@{/comment/{id}(id=${message.id})}">Comment</a>
+            <!--<b>Comment:</b> <Span th:text="${comment.messageComment}"></Span><br/>-->
+
+
         </div>
     </div>
 </div>

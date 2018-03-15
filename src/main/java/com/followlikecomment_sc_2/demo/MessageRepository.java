@@ -11,4 +11,11 @@ public interface MessageRepository extends CrudRepository<Message,Long> {
     Iterable <Message> findAllBySavedUsernameIs(String savedUsername);
 
     Iterable <Message> findAll (Sort sort);
+
+    User findUserBySavedUsername(String username);
+
+//    Iterable <Message> findById (Long id);
+
+    Message findById(Long id);
+    Message findMessageById (Long id);
 }

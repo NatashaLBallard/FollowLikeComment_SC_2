@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+</head>
+<body>
+
+<div th:replace="base :: navbarmenu"></div>
+
+
+<h2>Post A Comment</h2>
+<div th:replace="base :: navlinks"></div><br/><br/>
+
+<form action="#"
+      th:action="@{/processcomment}"
+      th:modelAttribute="comment"
+      method="post">
+
+
+    <input type="hidden" th:field="*{id}" />
+    <!--<input type="hidden" th:field="*{messages}" />-->
+
+
+    <div class="col-3">
+        <label id="labelCommentTest">Description</label>
+        <input type="text" class="form-control" id="textCommentDescription" th:field="*{commentDescription}" placeholder="Enter description of lost item"/>
+        <span th:if="${#fields.hasErrors('commentDescription')}" th:errors="*{commentDescription}"></span>
+    </div>
+
+    <br/>
+    <div class="col-3">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+</form>
+</body>
+</html>
