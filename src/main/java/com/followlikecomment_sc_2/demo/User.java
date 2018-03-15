@@ -35,7 +35,7 @@ public class User {
             inverseJoinColumns=@JoinColumn(name="role_id"))
     private Collection<Role> roles;
 
-    
+    private String follow;
 
 
 
@@ -147,6 +147,14 @@ public class User {
     public void addMessage(Message message)
     {
         this.myMessages.add(message);
+    }
+
+    public String getFollow() {
+        return follow;
+    }
+
+    public void setFollow(String follow) {
+        this.follow = follow;
     }
 }
 

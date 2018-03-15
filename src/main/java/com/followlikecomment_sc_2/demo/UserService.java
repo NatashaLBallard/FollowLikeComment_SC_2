@@ -15,6 +15,9 @@ public class UserService {
     RoleRepository roleRepository;
 
     @Autowired
+    FollowListRepository followListRepository;
+
+    @Autowired
     public UserService(UserRepository userRepository){
         this.userRepository=userRepository;
     }
@@ -39,4 +42,18 @@ public class UserService {
         user.setEnabled(true);
         userRepository.save(user);
     }
+
+//    public void followUser(Long theFollowerId){
+////        FollowList followUser = userRepository.findUserByUsername(theFollowerUsername);
+////        followUser.setTheFollowerUsername();
+//        followListRepository.save(new FollowList(theFollowerId));
+//
+//    }
+//
+//    public void unfollowUser(Long theFollowerId){
+//        followListRepository.delete(followListRepository.findByTheFollowerId(theFollowerId));
+//
+//    }
+
+
 }

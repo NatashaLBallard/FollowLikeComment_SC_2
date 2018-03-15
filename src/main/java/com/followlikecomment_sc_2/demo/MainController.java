@@ -9,12 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
-import sun.net.www.protocol.http.AuthenticationInfo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.IOException;
-import java.util.Map;
 
 @Controller
 public class MainController {
@@ -106,13 +103,51 @@ public class MainController {
     }
 
 
-
-
-    @GetMapping("/listitems")
-    public @ResponseBody String listMessages(Authentication auth)
-    {
-        return userRepository.findUserByUsername(auth.getName()).getMyMessages().toString();
+    @RequestMapping("/follow")
+    public String listOfFollowings(Model model){
+        model.addAttribute("users",userRepository.findAllByFollowContainingIgnoreCase("Yes"));
+        System.out.println();
+        return "redirect:/viewallusers";
     }
+
+    @RequestMapping("/unfollow")
+    public String listOfUnfollowings(Model model){
+        model.addAttribute("users",userRepository.findAllByFollowContainingIgnoreCase("No"));
+        return "redirect:/viewallusers";
+    }
+
+
+    @RequestMapping("/follow/{id}")
+    public String followUser(@PathVariable("id") long id,Model model){
+        model.addAttribute("user",userRepository.findOne(id));
+
+        User user =userRepository.findOne(id);
+
+        user.setFollow("Yes");
+
+        model.addAttribute("aFollow", userRepository.findOne(id));
+        userRepository.save(user);
+        return "redirect:/viewallusers";
+    }
+    @RequestMapping("/unfollow/{id}")
+    public String unfollowUser(@PathVariable("id") long id,Model model){
+        model.addAttribute("user",userRepository.findOne(id));
+
+        User user =userRepository.findOne(id);
+
+        user.setFollow("No");
+
+        model.addAttribute("aFollow", userRepository.findOne(id));
+        userRepository.save(user);
+        return "redirect:/viewallusers";
+    }
+
+//
+//    @GetMapping("/listitems")
+//    public @ResponseBody String listMessages(Authentication auth)
+//    {
+//        return userRepository.findUserByUsername(auth.getName()).getMyMessages().toString();
+//    }
 
 
 

@@ -10,4 +10,5 @@ public interface UserRepository extends CrudRepository<User,Long> {
     Long countByUsername(String username);
     User findUserByUsername(String username);
     User findUserById(long id);
+    User findAllByFollowContainingIgnoreCase (String follow);
 }
