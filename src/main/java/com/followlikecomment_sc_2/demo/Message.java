@@ -47,7 +47,7 @@ public class Message {
 
     private String viewCurrentUserMessages;
 
-
+    private int likeMessageCount;
 
 
     @ManyToOne
@@ -182,5 +182,21 @@ public class Message {
 
     public void setViewCurrentUserMessages(String viewCurrentUserMessages) {
         this.viewCurrentUserMessages = viewCurrentUserMessages;
+    }
+
+    public Integer getLikeMessageCount() {
+        return likeMessageCount;
+    }
+
+    public void setLikeMessageCount(Integer likeMessageCount) {
+        this.likeMessageCount = likeMessageCount;
+    }
+
+    public void addToLikeCount(){
+        this.likeMessageCount+=1;
+    }
+
+    public void minusFromLikeCount(){
+        this.likeMessageCount-=1;
     }
 }

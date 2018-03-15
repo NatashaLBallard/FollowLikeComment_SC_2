@@ -204,8 +204,21 @@ public class MainController {
 
 
 
+    @RequestMapping("/likethispost/{id}")
+    public String likeThisPost(Model model, @PathVariable("id") String theMessageLike){
+        Message likeMessage = messageRepository.findOne(new Long(theMessageLike));
+        likeMessage.addToLikeCount();
+        messageRepository.save(likeMessage);
+        return "redirect:/streamlist";
+    }
 
-
+    @RequestMapping("/unlikethispost/{id}")
+    public String unlikeThisPost(Model model, @PathVariable("id") String theMessageLike){
+        Message likeMessage = messageRepository.findOne(new Long(theMessageLike));
+        likeMessage.minusFromLikeCount();
+        messageRepository.save(likeMessage);
+        return "redirect:/streamlist";
+    }
 
 
     @RequestMapping("/adminlist/{id}")

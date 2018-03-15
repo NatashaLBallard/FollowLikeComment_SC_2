@@ -24,7 +24,7 @@
             <th>Category</th>
             <th>Date Lost</th>
             <th>Description</th>
-            <th>Found</th>
+            <th>Likes</th>
         </tr>
         </thead>
         <tbody>
@@ -51,13 +51,25 @@
 
             <td th:text="${message.description}"></td>
 
-            <td th:text="${message.found}"></td>
+            <td th:text="${message.likeMessageCount}"></td>
             <td>
-                <a th:href="@{/detail/{id}(id=${message.id})}">Details</a>
+                <!--<a th:href="@{/likethispost/{id}(id=${message.id})}">Like</a>-->
+
+                <span th:if="${message.likeMessageCount}==0">
+                        <a th:href="@{/likethispost/{id}(id=${message.id})}">Like</a>
+                    </span>
+
+                <span th:if="${message.likeMessageCount}>0">
+                        <a th:href="@{/unlikethispost/{id}(id=${message.id})}">Dislike</a>
+                    </span>
+
+
+
+
             </td>
             <!--<td><a th:href="@{/update/{id} (id=${item.id})}">Update</a></td>-->
-            <td><a th:href="@{/found/{id} (id=${message.id})}" >Found</a></td>
-            <td><a th:href="@{/lost/{id} (id=${message.id})}">Lost</a></td>
+            <!--<td><a th:href="@{/found/{id} (id=${message.id})}" >Found</a></td>-->
+            <!--<td><a th:href="@{/lost/{id} (id=${message.id})}">Lost</a></td>-->
         </tr>
         </tbody>
     </table>
