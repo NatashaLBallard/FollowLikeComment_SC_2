@@ -62,11 +62,8 @@ public class Message {
 
 
 
-
-
-//
-//    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private Set<Comment> comments;
+    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Comment> comments = new HashSet<>();
 
 
 //    public Message(){
@@ -88,7 +85,7 @@ public class Message {
     }
 
 
-    public Message(String alias, String savedUsername, String messageName, String description, String dateLost, String image, String found, String messageCategory, String addMessage, String search, String viewCurrentUserMessages, int likeMessageCount) {
+    public Message(String alias, String savedUsername, String messageName, String description, String dateLost, String image, String found, String messageCategory, String addMessage, String search, String viewCurrentUserMessages, int likeMessageCount, User user) {
         this.alias = alias;
         this.savedUsername = savedUsername;
         this.messageName = messageName;
@@ -262,11 +259,11 @@ public class Message {
         ArrayList<String> usersWhoLiked = new ArrayList<String>();
     }
 
-//    public Set<Comment> getCommentsformessage() {
-//        return commentsformessage;
-//    }
-//
-//    public void setCommentsformessage(Set<Comment> commentsformessage) {
-//        this.commentsformessage = commentsformessage;
-//    }
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
 }

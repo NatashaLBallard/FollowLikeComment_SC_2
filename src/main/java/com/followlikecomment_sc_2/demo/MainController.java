@@ -30,8 +30,8 @@ public class MainController {
     @Autowired
     LikesRepository likesRepository;
 
-//    @Autowired
-//    CommentRepository commentRepository;
+    @Autowired
+    CommentRepository commentRepository;
 
     @Autowired
     private UserService userService;
@@ -87,30 +87,58 @@ public class MainController {
 
     //***************** Start of USER POSTS COMMENT *****************
 
-//    @RequestMapping("/comment/{id}")
-//    public String addComment(@PathVariable("id")long id,Model model){
-//        model.addAttribute("message",messageRepository.findOne(id));
-//        return "addcomment";
-//    }
-//
+    @RequestMapping("/comment/{id}")
+    public String addComment(@PathVariable("id")long id,Model model){
+        model.addAttribute("message",messageRepository.findOne(id));
+        model.addAttribute("comment",new Comment());
+
+        return "addcomment";
+    }
+
 //
 //    @GetMapping("/addcomment")
 //    public String addMyCommentForm(Model model){
 //        model.addAttribute("comment",new Comment());
 //        return "addcomment";
 //    }
-//
-//    @PostMapping("/addcomment")
-//    public String processComment(@Valid @ModelAttribute("comment") Comment comment,BindingResult result, Authentication auth)
-//    {
-//        System.out.println(result);
-//        if (result.hasErrors()) {
-//            return "addcomment";
-//        }
-//        else {
-//            return "redirect:/showitemdetails";
-//        }
-//    }
+
+
+
+    @PostMapping("/processcomment")
+    public String processComment(@Valid @ModelAttribute("comment") Comment comment, BindingResult result, Authentication auth)
+    {
+        System.out.println(result);
+        if (result.hasErrors()) {
+            return "addcomment";
+        }
+        else {
+
+
+            User userCommenting = userRepository.findUserByUsername(auth.getName());
+            userCommenting.getMyComments().toString();
+            comment.setUser(userCommenting);
+//            comment.setMessage(message);
+            comment.setSavedCommenterName(auth.getName());
+
+//            Message commentForMessage = messageRepository.findMessageById(message.getId());
+//            message.setAddMessage(String.valueOf(message.getId()));
+
+//            messageRepository.save(message);
+            commentRepository.save(comment);
+
+            return "redirect:/showcomments";
+        }
+    }
+
+
+    @RequestMapping("/showcomments")
+    public String showComments( Model model){
+        model.addAttribute("comments",commentRepository.findAll());
+        return"showcomments";
+    }
+
+
+
 //
 //    @PostMapping("/processcomment")
 //    public String saveMyComment(@Valid @ModelAttribute("comment") Comment comment,Long id, BindingResult result, Authentication auth)

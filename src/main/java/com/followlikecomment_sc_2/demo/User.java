@@ -41,16 +41,16 @@ public class User {
 
 
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-    private Set<Message> myMessages;
-//
-//    @OneToMany (mappedBy = "comments", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-//    private Set<Comment> myComments;
+    private Set<Message> myMessages  = new HashSet<>();
+
+    @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    private Set<Comment> myComments = new HashSet<>();
 
 
 
     public User() {
 
-        this.myMessages = new HashSet<>();
+//        this.myMessages = new HashSet<>();
 //        this.myComments = new HashSet<>();
 
 
@@ -159,14 +159,13 @@ public class User {
 
 
 
-//
-//    public Set<Comment> getMyComments() {
-//        return myComments;
-//    }
-//
-//    public void setMyComments(Set<Comment> myComments) {
-//        this.myComments = myComments;
-//    }
+    public Set<Comment> getMyComments() {
+        return myComments;
+    }
+
+    public void setMyComments(Set<Comment> myComments) {
+        this.myComments = myComments;
+    }
 
 
 

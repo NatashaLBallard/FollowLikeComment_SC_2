@@ -25,8 +25,8 @@
 
     <div class="col-3">
         <label id="labelCommentTest">Description</label>
-        <input type="text" class="form-control" id="textCommentDescription" th:field="*{commentDescription}" placeholder="Enter description of lost item"/>
-        <span th:if="${#fields.hasErrors('commentDescription')}" th:errors="*{commentDescription}"></span>
+        <input type="text" class="form-control" id="textCommentDescription" th:field="*{comment.commentDescription}" placeholder="Enter description of lost item"/>
+        <span th:if="${#fields.hasErrors('comment.commentDescription')}" th:errors="*{comment.commentDescription}"></span>
     </div>
 
     <br/>

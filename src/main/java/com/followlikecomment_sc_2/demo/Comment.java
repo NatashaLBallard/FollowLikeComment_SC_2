@@ -15,10 +15,29 @@ public class Comment {
 
     private String commentTest;
 
-    @ManyToOne
-    private Message messageComment;
-//            (fetch = FetchType.EAGER)
-//    @JoinColumn(name = "messageid")
+    private String savedCommenterName;
+
+
+
+
+    @ManyToOne (cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name = "message_id")
+    private Message message;
+
+
+    @ManyToOne (cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Comment() {
+    }
+
+    public Comment(String commentDescription, String commentTest, Message message, User user) {
+        this.commentDescription = commentDescription;
+        this.commentTest = commentTest;
+        this.message = message;
+        this.user = user;
+    }
 
 
     public long getId() {
@@ -29,12 +48,20 @@ public class Comment {
         this.id = id;
     }
 
-    public Message getMessageComment() {
-        return messageComment;
+    public Message getMessage() {
+        return message;
     }
 
-    public void setMessageComment(Message messageComment) {
-        this.messageComment = messageComment;
+    public void setMessage(Message message) {
+        this.message = message;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getCommentDescription() {
@@ -59,5 +86,14 @@ public class Comment {
                 "id=" + id +
                 ", commentDescription='" + commentDescription + '\'' +
                 '}';
+    }
+
+
+    public String getSavedCommenterName() {
+        return savedCommenterName;
+    }
+
+    public void setSavedCommenterName(String savedCommenterName) {
+        this.savedCommenterName = savedCommenterName;
     }
 }
