@@ -24,8 +24,8 @@ public class MainController {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    FollowListRepository followListRepository;
+//    @Autowired
+//    FollowListRepository followListRepository;
 
     @Autowired
     LikesRepository likesRepository;
@@ -105,7 +105,7 @@ public class MainController {
 
 
     @PostMapping("/processcomment")
-    public String processComment(@Valid @ModelAttribute("comment") Comment comment, BindingResult result, Authentication auth)
+    public String processComment(@Valid @ModelAttribute("comment") Comment comment,BindingResult result, Authentication auth)
     {
         System.out.println(result);
         if (result.hasErrors()) {
@@ -117,25 +117,57 @@ public class MainController {
             User userCommenting = userRepository.findUserByUsername(auth.getName());
             userCommenting.getMyComments().toString();
             comment.setUser(userCommenting);
-//            comment.setMessage(message);
             comment.setSavedCommenterName(auth.getName());
+            commentRepository.save(comment);
+
+
+
+//
+//            Message messageId = messageRepository.findAllBySavedMessageId(String.valueOf(message.getId(message.id)));
+////            messageId.get().toString();
+//            message.setSavedMessageId(String.valueOf(messageId));
+//            messageRepository.save(message);
+//            commentRepository.save(comment);
+//
+//
 
 //            Message commentForMessage = messageRepository.findMessageById(message.getId());
+//            userCommenting.getMyMessages().toString();
+//            comment.setMessage(commentForMessage);
 //            message.setAddMessage(String.valueOf(message.getId()));
+//
+//           messageRepository.save(message);
 
-//            messageRepository.save(message);
-            commentRepository.save(comment);
 
             return "redirect:/showcomments";
         }
     }
 
+//
+//    @RequestMapping("/showcomments")
+//    public String showComments( Model model){
+//        model.addAttribute("comments",commentRepository.findAll());
+//        return"showcomments";
+//    }
+//
 
-    @RequestMapping("/showcomments")
-    public String showComments( Model model){
+    @RequestMapping("/showcomments/{id}")
+    public String showComments( @PathVariable("id")long id,Model model){
+        model.addAttribute("message",messageRepository.findOne(id));
         model.addAttribute("comments",commentRepository.findAll());
+
         return"showcomments";
     }
+
+
+//    @RequestMapping("/showcomments/{id}")
+//    public String showComments( @PathVariable("id")long id,Model model){
+//        model.addAttribute("message",messageRepository.findOne(id));
+//        model.addAttribute("message",messageRepository.findMessageById(id));
+//        model.addAttribute("comments",commentRepository.findAllByMessage(mess));
+//
+//        return"showcomments";
+//    }
 
 
 

@@ -55,6 +55,8 @@ public class Message {
     private String usersWhoLikedMessage;
 
 
+    private String savedMessageId;
+
     @ManyToOne (cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
@@ -85,7 +87,7 @@ public class Message {
     }
 
 
-    public Message(String alias, String savedUsername, String messageName, String description, String dateLost, String image, String found, String messageCategory, String addMessage, String search, String viewCurrentUserMessages, int likeMessageCount, User user) {
+    public Message(String alias, String savedUsername, String messageName, String description, String dateLost, String image, String found, String messageCategory, String addMessage, String search, String viewCurrentUserMessages, int likeMessageCount, String savedMessageId, User user) {
         this.alias = alias;
         this.savedUsername = savedUsername;
         this.messageName = messageName;
@@ -98,6 +100,7 @@ public class Message {
         this.search = search;
         this.viewCurrentUserMessages = viewCurrentUserMessages;
         this.likeMessageCount = likeMessageCount;
+        this.savedMessageId = savedMessageId;
         this.user = user;
 
     }
@@ -184,6 +187,7 @@ public class Message {
                 ", image='" + image + '\'' +
                 ", found='" + found + '\'' +
                 ", messageCategory='" + messageCategory + '\'' +
+                ", savedMessageId='" + savedMessageId + '\'' +
                 '}';
     }
 
@@ -265,5 +269,13 @@ public class Message {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getSavedessageId() {
+        return savedMessageId;
+    }
+
+    public void setSavedMessageId(String savedMessageId) {
+        this.savedMessageId = savedMessageId;
     }
 }

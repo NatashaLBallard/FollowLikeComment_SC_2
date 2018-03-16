@@ -11,4 +11,6 @@ public interface UserRepository extends CrudRepository<User,Long> {
     User findUserByUsername(String username);
     User findUserById(long id);
     User findAllByFollowContainingIgnoreCase (String follow);
+
+
 }
