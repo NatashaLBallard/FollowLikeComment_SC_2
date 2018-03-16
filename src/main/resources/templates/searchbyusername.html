@@ -19,7 +19,8 @@
 </form>
 
 
-<div th:if="${search}!=null" th:inline="text">You searched for <i>[[${search}]]</i>.</div>
+<div th:if="${search}!=null" th:inline="text">You searched for <i>[[${search}]]</i>. Results are displayed by most recently submitted.</div>
+
 
 
 <div class="container">
@@ -27,41 +28,79 @@
         <thead>
         <tr>
             <th></th>
-            <th>Submitted By</th>
-            <th>Item ID</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Date Lost</th>
+            <th>User</th>
+            <!--<th>Category</th>-->
+            <!--<th>Date Lost</th>-->
             <th>Description</th>
-            <th>Found</th>
+            <!--<th>Found</th>-->
         </tr>
         </thead>
         <tbody>
         <tr th:each="message : ${messages}">
             <td><img class="img-rounded" th:src="${message.image}" alt="Item Picture" style="width:30%"/></td>
 
-            <td th:text="${message.alias}"></td>
+            <!--<td th:text="${message.messageName}"></td>-->
 
-            <td th:text="${message.id}"></td>
+            <!--<td th:text="${message.messageCategory}"></td>-->
 
-            <td th:text="${message.messageName}"></td>
+            <!--<td th:text="${message.dateLost}"></td>-->
 
-            <td th:text="${message.messageCategory}"></td>
-
-            <td th:text="${message.dateLost}"></td>
+            <td th:text="${message.user.username}"></td>
 
             <td th:text="${message.description}"></td>
 
-            <td th:text="${message.found}"></td>
+            <!--<td th:text="${message.found}"></td>-->
             <td>
                 <a th:href="@{/detail/{id}(id=${message.id})}">Details</a>
             </td>
-            <!--<td><a th:href="@{/update/{id} (id=${item.id})}">Update</a></td>-->
-            <td><a th:href="@{/found/{id} (id=${message.id})}">Found</a></td>
-            <td><a th:href="@{/lost/{id} (id=${message.id})}">Lost</a></td>
+            <!--<td><a th:href="@{/update/{id} (id=${message.id})}">Update</a></td>-->
+            <!--<td><a th:href="@{/found/{id} (id=${message.id})}">Found</a></td>-->
+            <!--<td><a th:href="@{/lost/{id} (id=${message.id})}">Lost</a></td>-->
         </tr>
         </tbody>
     </table>
 </div>
+
+<!--<div class="container">-->
+    <!--<table class="table" title="searchresults" >-->
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th></th>-->
+            <!--<th>Submitted By</th>-->
+            <!--<th>Item ID</th>-->
+            <!--<th>Name</th>-->
+            <!--<th>Category</th>-->
+            <!--<th>Date Lost</th>-->
+            <!--<th>Description</th>-->
+            <!--<th>Found</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr th:each="message : ${messages}">-->
+            <!--<td><img class="img-rounded" th:src="${message.image}" alt="Item Picture" style="width:30%"/></td>-->
+
+            <!--<td th:text="${message.alias}"></td>-->
+
+            <!--<td th:text="${message.id}"></td>-->
+
+            <!--<td th:text="${message.messageName}"></td>-->
+
+            <!--<td th:text="${message.messageCategory}"></td>-->
+
+            <!--<td th:text="${message.dateLost}"></td>-->
+
+            <!--<td th:text="${message.description}"></td>-->
+
+            <!--<td th:text="${message.found}"></td>-->
+            <!--<td>-->
+                <!--<a th:href="@{/detail/{id}(id=${message.id})}">Details</a>-->
+            <!--</td>-->
+            <!--&lt;!&ndash;<td><a th:href="@{/update/{id} (id=${item.id})}">Update</a></td>&ndash;&gt;-->
+            <!--<td><a th:href="@{/found/{id} (id=${message.id})}">Found</a></td>-->
+            <!--<td><a th:href="@{/lost/{id} (id=${message.id})}">Lost</a></td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+    <!--</table>-->
+<!--</div>-->
 </body>
 </html>

@@ -17,14 +17,12 @@
     <table class="table" title="currentItems">
         <thead>
         <tr>
+            <th>ID</th>
             <th></th> <!--Image-->
             <th>Submitted By</th>
-            <th>Item ID</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Date Lost</th>
             <th>Description</th>
             <th>Likes</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -32,6 +30,7 @@
         <tr th:each="message : ${messages}">
             <!--<td><img class="img-rounded" th:src="${item.image}" alt="Item Picture" style="width:30%"/></td>-->
 
+            <td th:text="${message.id}"></td>
 
             <td><img  th:src="(${message.image}==null)?'https://static1.squarespace.com/static/50c2031de4b02a7395e3e36f/t/5579a8e5e4b0204b4bc3a1b1/1434036455283/LostAndFoundBoxShutterstock.jpg':${message.image}"  style="width:30%"/></td>
             <!--<td><span sec:authorize="isAuthenticated()">-->
@@ -39,17 +38,17 @@
             <!--</span>-->
             <!--</td>-->
 
-            <td th:text="${message.alias}"></td>
-
-            <td th:text="${message.id}"></td>
-
-            <td th:text="${message.messageName}"></td>
-
-            <td th:text="${message.messageCategory}"></td>
-
-            <td th:text="${message.dateLost}"></td>
+            <!--<td th:text="${message.alias}"></td>-->
+            <td th:text="${message.user.username}"></td>
 
             <td th:text="${message.description}"></td>
+
+            <!--<td th:text="${message.messageName}"></td>-->
+
+            <!--<td th:text="${message.messageCategory}"></td>-->
+
+            <!--<td th:text="${message.dateLost}"></td>-->
+
 
             <td th:text="${message.likeMessageCount}"></td>
             <td>
@@ -64,6 +63,7 @@
                     </span>
 
 
+                <a th:href="@{/comment/{id}(id=${message.id})}">Comment</a>
 
 
             </td>

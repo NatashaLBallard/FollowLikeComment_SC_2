@@ -18,33 +18,33 @@ public class Message {
     private long id;
 
 
-    @NotNull
-    @Size(min=1)
-    private String alias;
-
+//    @NotNull
+//    @Size(min=1)
+//    private String alias;
+//
 
     private String savedUsername;
 
-    @NotNull
-    @Size(min=1)
-    private String messageName;
+//    @NotNull
+//    @Size(min=1)
+//    private String messageName;
 
     @NotNull
     @Size(min=1)
     private String description;
-
-    @NotNull
-    @Size(min=1)
-    private String dateLost;
+//
+//    @NotNull
+//    @Size(min=1)
+//    private String dateLost;
 
     @URL
     private String image;
 
-    private String found;
-
-    private String messageCategory;
-
-    private String addMessage;
+//    private String found;
+//
+//    private String messageCategory;
+//
+//    private String addMessage;
 
     private String search;
 
@@ -56,6 +56,14 @@ public class Message {
 
 
     private String savedMessageId;
+
+//    private byte[] image;
+//
+//    private String imageUrl;
+
+
+
+
 
     @ManyToOne (cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -88,15 +96,15 @@ public class Message {
 
 
     public Message(String alias, String savedUsername, String messageName, String description, String dateLost, String image, String found, String messageCategory, String addMessage, String search, String viewCurrentUserMessages, int likeMessageCount, String savedMessageId, User user) {
-        this.alias = alias;
+//        this.alias = alias;
         this.savedUsername = savedUsername;
-        this.messageName = messageName;
+//        this.messageName = messageName;
         this.description = description;
-        this.dateLost = dateLost;
+//        this.dateLost = dateLost;
         this.image = image;
-        this.found = found;
-        this.messageCategory = messageCategory;
-        this.addMessage = addMessage;
+//        this.found = found;
+//        this.messageCategory = messageCategory;
+//        this.addMessage = addMessage;
         this.search = search;
         this.viewCurrentUserMessages = viewCurrentUserMessages;
         this.likeMessageCount = likeMessageCount;
@@ -113,22 +121,22 @@ public class Message {
     public void setId(long itemId) {
         this.id = id;
     }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
-    public String getMessageName() {
-        return messageName;
-    }
-
-    public void setMessageName(String messageName) {
-        this.messageName = messageName;
-    }
+//
+//    public String getAlias() {
+//        return alias;
+//    }
+//
+//    public void setAlias(String alias) {
+//        this.alias = alias;
+//    }
+//
+//    public String getMessageName() {
+//        return messageName;
+//    }
+//
+//    public void setMessageName(String messageName) {
+//        this.messageName = messageName;
+//    }
 
     public String getDescription() {
         return description;
@@ -138,13 +146,13 @@ public class Message {
         this.description = description;
     }
 
-    public String getDateLost() {
-        return dateLost;
-    }
-
-    public void setDateLost(String dateLost) {
-        this.dateLost = dateLost;
-    }
+//    public String getDateLost() {
+//        return dateLost;
+//    }
+//
+//    public void setDateLost(String dateLost) {
+//        this.dateLost = dateLost;
+//    }
 
     public String getImage() {
         return image;
@@ -154,22 +162,22 @@ public class Message {
         this.image = image;
     }
 
-    public String getFound() {
-        return found;
-    }
-
-    public void setFound(String found) {
-        this.found = found;
-    }
-
-    public String getMessageCategory() {
-        return messageCategory;
-    }
-
-    public void setMessageCategory(String messageCategory) {
-        this.messageCategory = messageCategory;
-    }
-
+//    public String getFound() {
+//        return found;
+//    }
+//
+//    public void setFound(String found) {
+//        this.found = found;
+//    }
+//
+//    public String getMessageCategory() {
+//        return messageCategory;
+//    }
+//
+//    public void setMessageCategory(String messageCategory) {
+//        this.messageCategory = messageCategory;
+//    }
+//
 
 
 
@@ -179,25 +187,25 @@ public class Message {
     @Override
     public String toString() {
         return "Message{" +
-                "messageName='" + messageName + '\'' +
-                ", alias='" + alias + '\'' +
+//                "messageName='" + messageName + '\'' +
+//                ", alias='" + alias + '\'' +
                 ", savedUsername='" + savedUsername + '\'' +
                 ", description='" + description + '\'' +
-                ", dateLost='" + dateLost + '\'' +
+//                ", dateLost='" + dateLost + '\'' +
                 ", image='" + image + '\'' +
-                ", found='" + found + '\'' +
-                ", messageCategory='" + messageCategory + '\'' +
+//                ", found='" + found + '\'' +
+//                ", messageCategory='" + messageCategory + '\'' +
                 ", savedMessageId='" + savedMessageId + '\'' +
                 '}';
     }
 
-    public String getAddMessage() {
-        return addMessage;
-    }
-
-    public void setAddMessage(String addMessage) {
-        this.addMessage = addMessage;
-    }
+//    public String getAddMessage() {
+//        return addMessage;
+//    }
+//
+//    public void setAddMessage(String addMessage) {
+//        this.addMessage = addMessage;
+//    }
 
 
     public String getSearch() {
@@ -278,4 +286,22 @@ public class Message {
     public void setSavedMessageId(String savedMessageId) {
         this.savedMessageId = savedMessageId;
     }
+
+//    public byte[] getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(byte[] image) {
+//        this.image = image;
+//    }
+//
+//
+//    public String getImageUrl() {
+//        return imageUrl;
+//    }
+//
+//    public void setImageUrl(String imageUrl) {
+//        this.imageUrl = imageUrl;
+//    }
+
 }

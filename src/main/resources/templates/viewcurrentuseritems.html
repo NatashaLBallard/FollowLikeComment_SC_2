@@ -10,7 +10,7 @@
 <div th:replace="base :: navbarmenu"></div>
 
 
-<h2>View Your Lost Items</h2>
+<h2>View Your Messages</h2>
 <div th:replace="base :: navlinks"></div><br/><br/>
 
 <!--<form th:action="@{/viewcurrentuseritems}" method="post">-->
@@ -24,27 +24,32 @@
     <table class="table" title="searchresults" >
         <thead>
         <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Date Lost</th>
+            <th></th> <!--Image -->
             <th>Description</th>
-            <th>Found</th>
+            <th>Likes</th>
+
+            <!--<th>Name</th>-->
+            <!--<th>Category</th>-->
+            <!--<th>Date Lost</th>-->
+            <!--<th>Description</th>-->
+            <!--<th>Found</th>-->
         </tr>
         </thead>
         <tbody>
         <tr th:each="message : ${messages}">
             <td><img class="img-rounded" th:src="${message.image}" alt="Item Picture" style="width:30%"/></td>
 
-            <td th:text="${message.messageName}"></td>
+            <!--<td th:text="${message.messageName}"></td>-->
 
-            <td th:text="${message.messageCategory}"></td>
+            <!--<td th:text="${message.messageCategory}"></td>-->
 
-            <td th:text="${message.dateLost}"></td>
+            <!--<td th:text="${message.dateLost}"></td>-->
 
             <td th:text="${message.description}"></td>
 
-            <td th:text="${message.found}"></td>
+            <td th:text="${message.likeMessageCount}"></td>
+
+            <!--<td th:text="${message.found}"></td>-->
             <td>
                 <a th:href="@{/detail/{id}(id=${message.id})}">Details</a>
             </td>

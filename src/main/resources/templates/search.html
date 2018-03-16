@@ -26,32 +26,34 @@
         <thead>
         <tr>
             <th></th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Date Lost</th>
+            <th>User</th>
+            <!--<th>Category</th>-->
+            <!--<th>Date Lost</th>-->
             <th>Description</th>
-            <th>Found</th>
+            <!--<th>Found</th>-->
         </tr>
         </thead>
         <tbody>
         <tr th:each="message : ${messages}">
             <td><img class="img-rounded" th:src="${message.image}" alt="Item Picture" style="width:30%"/></td>
 
-            <td th:text="${message.messageName}"></td>
+            <!--<td th:text="${message.messageName}"></td>-->
 
-            <td th:text="${message.messageCategory}"></td>
+            <!--<td th:text="${message.messageCategory}"></td>-->
 
-            <td th:text="${message.dateLost}"></td>
+            <!--<td th:text="${message.dateLost}"></td>-->
+
+            <td th:text="${message.user.username}"></td>
 
             <td th:text="${message.description}"></td>
 
-            <td th:text="${message.found}"></td>
+            <!--<td th:text="${message.found}"></td>-->
             <td>
                 <a th:href="@{/detail/{id}(id=${message.id})}">Details</a>
             </td>
-            <td><a th:href="@{/update/{id} (id=${message.id})}">Update</a></td>
-            <td><a th:href="@{/found/{id} (id=${message.id})}">Found</a></td>
-            <td><a th:href="@{/lost/{id} (id=${message.id})}">Lost</a></td>
+            <!--<td><a th:href="@{/update/{id} (id=${message.id})}">Update</a></td>-->
+            <!--<td><a th:href="@{/found/{id} (id=${message.id})}">Found</a></td>-->
+            <!--<td><a th:href="@{/lost/{id} (id=${message.id})}">Lost</a></td>-->
         </tr>
         </tbody>
     </table>

@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -27,8 +31,12 @@ public class MainController {
 //    @Autowired
 //    FollowListRepository followListRepository;
 
+
     @Autowired
-    LikesRepository likesRepository;
+    CloudinaryConfig cloudinaryConfig;
+
+//    @Autowired
+//    LikesRepository likesRepository;
 
     @Autowired
     CommentRepository commentRepository;
@@ -38,8 +46,13 @@ public class MainController {
 
     @RequestMapping("/")
     public String showIndex(Model model){
-        model.addAttribute("messages",messageRepository.findAllByFoundContainingIgnoreCase("No"));
-        return "index";
+
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
+        model.addAttribute("messages",messageRepository.findAll(sort));
+        return"streamlist";
+
+//        model.addAttribute("messages",messageRepository.findAllByFoundContainingIgnoreCase("No"));
+//        return "index";
     }
 
     @RequestMapping("/login")
@@ -70,7 +83,7 @@ public class MainController {
     }
 
     @PostMapping("/process")
-    public String saveMyMessage(@Valid @ModelAttribute("message") Message message,BindingResult result, Authentication auth)
+    public String saveMyMessage(@Valid @ModelAttribute("message") Message message, BindingResult result, Authentication auth)
     {
         if (result.hasErrors()) {
             return "add";
@@ -82,6 +95,34 @@ public class MainController {
         messageRepository.save(message);
         return "redirect:/";
     }
+
+
+//    @PostMapping("/process")
+//    public String saveMyMessage(@Valid @ModelAttribute("message") Message message, @RequestParam("file")MultipartFile file, BindingResult result, Authentication auth) {
+//        if (file.isEmpty()) {
+//            return "add";
+//        }
+//        try {
+//            Map uploadResult = cloudinaryConfig.upload(file.getBytes(),
+//                    ObjectUtils.asMap("resourcetype", "auto"));
+//            message.setImageUrl(uploadResult.get("url").toString());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return "add";
+//        }
+//        if (result.hasErrors()) {
+//
+//            return "add";
+//
+//        } else {
+//            User currentUser = userRepository.findUserByUsername(auth.getName());
+//            currentUser.getMyMessages().toString();
+//            message.setUser(currentUser);
+//            message.setSavedUsername(auth.getName());
+//            messageRepository.save(message);
+//            return "redirect:/";
+//        }
+//    }
 
     //***************** End of USER POSTS MESSAGE *****************
 
@@ -105,7 +146,7 @@ public class MainController {
 
 
     @PostMapping("/processcomment")
-    public String processComment(@Valid @ModelAttribute("comment") Comment comment,BindingResult result, Authentication auth)
+    public String processComment(@Valid @ModelAttribute("comment") Comment comment, @Valid @ModelAttribute("message") Message message,  BindingResult result, Authentication auth)
     {
         System.out.println(result);
         if (result.hasErrors()) {
@@ -121,15 +162,15 @@ public class MainController {
             commentRepository.save(comment);
 
 
-
 //
-//            Message messageId = messageRepository.findAllBySavedMessageId(String.valueOf(message.getId(message.id)));
-////            messageId.get().toString();
+//
+//            Message messageId = messageRepository.findAllBySavedMessageId(String.valueOf(message.getId(message.getSavedMessageId())));
+//           messageId.getSavedMessageId().toString();
 //            message.setSavedMessageId(String.valueOf(messageId));
 //            messageRepository.save(message);
 //            commentRepository.save(comment);
-//
-//
+
+
 
 //            Message commentForMessage = messageRepository.findMessageById(message.getId());
 //            userCommenting.getMyMessages().toString();
@@ -139,7 +180,7 @@ public class MainController {
 //           messageRepository.save(message);
 
 
-            return "redirect:/showcomments";
+            return "redirect:/showcomments/{id}";
         }
     }
 
@@ -298,14 +339,14 @@ public class MainController {
 
     @RequestMapping("/list")
     public String listMessages(Model model){
-        model.addAttribute("messages",messageRepository.findAllByFoundContainingIgnoreCase("No"));
+//        model.addAttribute("messages",messageRepository.findAllByFoundContainingIgnoreCase("No"));
         return"list";
     }
 
 
     @RequestMapping("/listfound")
     public String listOfFoundMessages(Model model){
-        model.addAttribute("messages",messageRepository.findAllByFoundContainingIgnoreCase("Yes"));
+//        model.addAttribute("messages",messageRepository.findAllByFoundContainingIgnoreCase("Yes"));
         return"listfound";
     }
 
@@ -374,15 +415,6 @@ public class MainController {
 
 
 
-
-    @RequestMapping("/adminlist/{id}")
-    public String allListings(@PathVariable("id") long id,Model model){
-        model.addAttribute("messages",messageRepository.findAll());
-        model.addAttribute("users",userRepository.findOne(id));
-        return"adminlist";
-    }
-
-
     @RequestMapping("/detail/{id}")
     public String showDetail(@PathVariable("id")long id,Model model, Authentication auth){
         model.addAttribute("message",messageRepository.findOne(id));
@@ -402,31 +434,31 @@ public class MainController {
 
 
 
-
-    @RequestMapping("/found/{id}")
-    public String foundMessage(@PathVariable("id") long id,Model model){
-        model.addAttribute("message",messageRepository.findOne(id));
-
-        Message message=messageRepository.findOne(id);
-
-        message.setFound("Yes");
-
-        model.addAttribute("aMessage", messageRepository.findOne(id));
-        messageRepository.save(message);
-        return "redirect:/list";
-    }
-    @RequestMapping("/lost/{id}")
-    public String lostMessage(@PathVariable("id") long id,Model model){
-        model.addAttribute("message",messageRepository.findOne(id));
-
-        Message message=messageRepository.findOne(id);
-
-        message.setFound("No");
-
-        model.addAttribute("aMessage", messageRepository.findOne(id));
-        messageRepository.save(message);
-        return "redirect:/list";
-    }
+//
+//    @RequestMapping("/found/{id}")
+//    public String foundMessage(@PathVariable("id") long id,Model model){
+//        model.addAttribute("message",messageRepository.findOne(id));
+//
+//        Message message=messageRepository.findOne(id);
+//
+//        message.setFound("Yes");
+//
+//        model.addAttribute("aMessage", messageRepository.findOne(id));
+//        messageRepository.save(message);
+//        return "redirect:/list";
+//    }
+//    @RequestMapping("/lost/{id}")
+//    public String lostMessage(@PathVariable("id") long id,Model model){
+//        model.addAttribute("message",messageRepository.findOne(id));
+//
+//        Message message=messageRepository.findOne(id);
+//
+//        message.setFound("No");
+//
+//        model.addAttribute("aMessage", messageRepository.findOne(id));
+//        messageRepository.save(message);
+//        return "redirect:/list";
+//    }
 
     //For user registration
     @RequestMapping(value="/register",method=RequestMethod.GET)
@@ -460,6 +492,8 @@ public class MainController {
         String searchString = request.getParameter("search");
         model.addAttribute("search",searchString);
         model.addAttribute("messages", messageRepository.findAllBySavedUsernameContainingIgnoreCase(searchString));
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
+        model.addAttribute("messages",messageRepository.findAll(sort));
         return "searchbyusername";
     }
 
